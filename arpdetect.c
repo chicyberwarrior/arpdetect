@@ -75,13 +75,14 @@ int main() {
 
     signal(SIGINT, intHandler);
          
-    dev = pcap_lookupdev(errbuf);
+    //dev = pcap_lookupdev(errbuf);
 
-    if(dev == NULL) {
-        fprintf(stderr, "Could not find default device: %s\n", errbuf);
-        return(2);
-    }
+    //if(dev == NULL) {
+    //    fprintf(stderr, "Could not find default device: %s\n", errbuf);
+    //    return(2);
+    //}
 
+    dev = "en1";
     printf("Device: %s\n", dev);
 
     handle = pcap_open_live(dev, BUFSIZ, 1, 1000, errbuf);
@@ -131,7 +132,7 @@ void arp_handler(u_char * args, const struct pcap_pkthdr * header, const u_char 
 
     arphdr = (arphdr_t *) (pkt + SIZE_ETHERNET);
 
-    if(arphdr->ptype = 0x0800) {
+    if(arphdr->ptype == 0x0800) {
         char dst_macaddrstr[ETHER_ADDR_LEN * 2 + 5 + 1];
         char src_macaddrstr[ETHER_ADDR_LEN * 2 + 5 + 1];
         
